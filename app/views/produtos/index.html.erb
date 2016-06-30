@@ -1,3 +1,9 @@
+<% if flash[:notice]%>
+	<div class="alert alert-success" role="alert">
+			<%= flash[:notice] %>
+	</div>
+<% end %>
+
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -8,14 +14,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @produtos_por_nome.each do |produto| %>
-		<tr>
-			<td><%= produto.nome %></td>
-			<td><%= produto.descricao %></td>
-			<td><%= produto.preco %></td>
-			<td><%= produto.quantidade %></td>
-		</tr>
-		<% end %>
+		<%= render partial: "produto", collection: @produtos_por_nome %>
 	</tbody>
 </table>
 
@@ -29,13 +28,8 @@
 		</tr>
 	</thead>
 	<tbody>
-		<% @produtos_por_preco.each do |produto| %>
-		<tr>
-			<td><%= produto.nome %></td>
-			<td><%= produto.descricao %></td>
-			<td><%= produto.preco %></td>
-			<td><%= produto.quantidade %></td>
-		</tr>
-		<% end %>
+		<%= render partial: "produto", collection: @produtos_por_preco %>
 	</tbody>
 </table>
+
+<%= link_to "Criar novo produto", new_produto_path %>

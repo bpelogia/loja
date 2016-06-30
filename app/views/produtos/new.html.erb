@@ -1,4 +1,10 @@
-<%= form_for Produto.new do |f| %>
+<% @produto.errors.full_messages.each do |message|%>
+	<div class="alert alert-danger" role="alert">
+		<%= message %>
+	</div>
+<% end %>
+
+<%= form_for @produto do |f| %>
 	
 	<div class="form-group">
 		<%= f.label :nome %>
@@ -8,6 +14,11 @@
 	<div class="form-group">
 		<%= f.label :descricao %>    
 		<%= f.text_area :descricao, rows: 4, class: "form-control" %> 
+	</div>
+	
+	<div class="form-group">
+		<%= f.label :departamento %>    
+		<%= f.collection_select :departamento_id, @departamentos, :id, :nome %> 
 	</div>
 	
 	<div class="form-inline">

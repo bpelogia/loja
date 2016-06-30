@@ -14,3 +14,6 @@ gem 'turbolinks'
 #gem do bootstrap
 gem 'twitter-bootstrap-rails'
 
+#gem para internacionalização
+gem 'rails-i18n','~> 4.0.0'
+
