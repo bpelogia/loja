@@ -7,19 +7,37 @@ class ProdutosController < ApplicationController
   
   def new 
     @produto = Produto.new
-    @departamentos = Departamento.all
+    renderiza_new
   end
   
   def create
     #o '.permit!' indica a permissão de todos os atributos
     #valores = params.require(:produto).permit!
-    valores = params.require(:produto).permit(:nome, :descricao, :quantidade, :preco)
+    valores = params.require(:produto).permit(:nome, :descricao, :quantidade, :preco, :departamento_id)
     @produto = Produto.new valores
     if @produto.save
         flash[:notice] = "Produto salvo com sucesso!"
         redirect_to root_url
     else
-        render :new
+        renderiza_new
+    end
+  end
+  
+  def edit
+    id = params[:id]
+    @produto = Produto.find(id)
+    renderiza_new
+  end
+  
+  def update
+    id = params[:id]
+    @produto = Produto.find(id)
+    valores = params.require(:produto).permit(:nome, :descricao, :quantidade, :preco, :departamento_id)
+    if @produto.update valores
+      flash[:notice] = "Produto atualizado com sucesso"
+      redirect_to root_url
+    else
+      renderiza_new
     end
   end
   
@@ -32,6 +50,13 @@ class ProdutosController < ApplicationController
   def busca
     @nome = params[:nome]
     @produtos = Produto.where "nome like ?", "%#{@nome}%"
+  end
+  
+  private
+  
+  def rederiza_new
+    @departamentos = Departamento.all
+    render :new
   end
   
 end
