@@ -1,5 +1,7 @@
 class ProdutosController < ApplicationController
   
+  before_action :set_produto, only: [:edit, :update, :destroy]
+  
   def index
     @produtos_por_nome = Produto.order(:nome).limit 5
     @produtos_por_preco = Produto.order(:preco).limit 2
@@ -7,43 +9,34 @@ class ProdutosController < ApplicationController
   
   def new 
     @produto = Produto.new
-    renderiza_new
+    renderiza :new
   end
   
   def create
-    #o '.permit!' indica a permissão de todos os atributos
-    #valores = params.require(:produto).permit!
-    valores = params.require(:produto).permit(:nome, :descricao, :quantidade, :preco, :departamento_id)
-    @produto = Produto.new valores
+    @produto = Produto.new produto_params
     if @produto.save
         flash[:notice] = "Produto salvo com sucesso!"
         redirect_to root_url
     else
-        renderiza_new
+        renderiza :new
     end
   end
   
   def edit
-    id = params[:id]
-    @produto = Produto.find(id)
-    renderiza_new
+    renderiza :edit
   end
   
   def update
-    id = params[:id]
-    @produto = Produto.find(id)
-    valores = params.require(:produto).permit(:nome, :descricao, :quantidade, :preco, :departamento_id)
-    if @produto.update valores
+    if @produto.update produto_params
       flash[:notice] = "Produto atualizado com sucesso"
       redirect_to root_url
     else
-      renderiza_new
+      renderiza :edit
     end
   end
   
   def destroy
-    id = params[:id]
-    Produto.destroy id
+    @produto.destroy id
     redirect_to root_path
   end
   
@@ -54,9 +47,20 @@ class ProdutosController < ApplicationController
   
   private
   
-  def rederiza_new
+  def renderiza(view)
     @departamentos = Departamento.all
-    render :new
+    render view
+  end
+  
+  def set_produto
+    id = params[:id]
+    @produto = Produto.find(id)
+  end
+  
+  def produto_params
+    #o '.permit!' indica a permissão de todos os atributos
+    #valores = params.require(:produto).permit!
+    params.require(:produto).permit(:nome, :descricao, :quantidade, :preco, :departamento_id)
   end
   
 end
