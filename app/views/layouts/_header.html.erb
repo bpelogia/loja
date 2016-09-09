@@ -1,0 +1,42 @@
+<!-- <header>
+    <div>
+      <nav>
+        <ul>
+          <% if logged_in? %>
+            <li><%= link_to "Users", users_path %></li>
+            <li>
+              <ul>
+                <li><%= link_to "Profile", current_user %></li>
+                <li><%= link_to "Settings", '#' %></li>
+                <li>
+                  <%= link_to "Log out", sign_out_path, method: "delete" %>
+                </li>
+              </ul>
+            </li>
+          <% else %>
+            <li><%= link_to "Log in", root_path %></li>
+          <% end %>
+        </ul>
+      </nav>
+    </div>
+  </header> -->
+
+  <%= nav_bar brand: "Loja", brand_link: root_url do %>
+      <% if logged_in? %>
+        <%= menu_item "Users", users_path
+        <%= menu_group do
+          <%= menu_item "Profile", sign_out_path
+          <%= menu_item "Settings", sign_out_path
+          <%= menu_item "Log Out", sign_out_path, method: "delete"
+        <% end %>
+      <%else %>
+        <%= menu_item "Log in", root_path
+      <% end %>
+
+  	<%= form_tag busca_produto_path, method: :get, class: "navbar-form navbar-left" do %>
+  		<div class="form-group">
+  			<%= text_field_tag :nome, @nome, class: "form-control" %>
+  			<%= button_to "Buscar", nil, class: "btn btn-default" %>
+  		</div>
+  	<% end %>
+  <% end %>

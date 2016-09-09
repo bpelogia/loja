@@ -8,15 +8,8 @@
 </head>
 <body>
 
-<%= nav_bar brand: "Loja", brand_link: root_url do %>
-	<%= form_tag busca_produto_path, method: :get, class: "navbar-form navbar-right" do %>
-		<div class="form-group">
-			<%= text_field_tag :nome, @nome, class: "form-control" %>
-			<%= button_to "Buscar", nil, class: "btn btn-default" %>
-		</div>
-	<% end %>
-<% end %>
 <div class="container">
+  <%= render 'layouts/header' %>
 	<%= yield %>
 </div>
 

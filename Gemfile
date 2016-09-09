@@ -17,3 +17,5 @@ gem 'twitter-bootstrap-rails'
 #gem para internacionalização
 gem 'rails-i18n','~> 4.0.0'
 
+#gem para encryptação de senha
+gem 'bcrypt'
