@@ -8,16 +8,16 @@
 </head>
 <body>
 
-<%= nav_bar brand: "Loja", brand_link: root_url do %>
+<%= nav_bar brand: image_tag('logo.png'), brand_link: root_url do %>
 	<%= form_tag busca_produto_path, method: :get, class: "navbar-form navbar-left" do %>
 		<div class="form-group">
 			<%= text_field_tag :nome, @nome, class: "form-control" %>
-			<%= button_to "Buscar", nil, class: "btn btn-default" %>
+			<%= button_to "Buscar", nil, class: "btn btn-primary" %>
 		</div>
 	<% end %>
   <%= form_tag destroy_user_session_path, method: :delete, class: "navbar-form navbar-right" do %>
     <div class="form-group">
-      <%= button_to "Sair", nil, class: "btn btn-default" %>
+      <%= button_to "Sair", nil, class: "btn btn-warning" %>
     </div>
   <% end %>
 <% end %>
