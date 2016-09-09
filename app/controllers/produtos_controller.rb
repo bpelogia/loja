@@ -1,6 +1,7 @@
 class ProdutosController < ApplicationController
 
   before_action :set_produto, only: [:edit, :update, :destroy]
+  before_action :authenticate_user!
 
   def index
     @produtos_por_nome = Produto.order(:nome).limit 5

@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
   
+  devise_for :users
   resources :departamentos
   #post "/produtos" => "produtos#create"
   #get "/produtos/new" => "produtos#new"
